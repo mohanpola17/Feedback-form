@@ -1,10 +1,30 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const helmet = require('helmet');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const mongoose = require('mongoose');
 
 const app = express();
-app.use(cors());
+
+// Security middlewares
+app.use(helmet());
+if (!process.env.FRONTEND_URL) {
+  throw new Error('FRONTEND_URL environment variable is required!');
+}
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}));
+
+// Rate limiting for auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // limit each IP to 20 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.'
+});
+app.use('/api/auth', authLimiter);
+
 app.use(express.json());
 
 const authRoutes = require('./routes/auth');
@@ -19,8 +39,11 @@ app.get('/', (req, res) => {
 });
 
 // MongoDB connection
-const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/feedback-platform';
+const PORT = process.env.PORT || 4000;
+if (!process.env.MONGO_URI) {
+  throw new Error('MONGO_URI environment variable is required!');
+}
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,

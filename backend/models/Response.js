@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ResponseSchema = new mongoose.Schema({
-  form: { type: mongoose.Schema.Types.ObjectId, ref: 'Form', required: true },
+  form: { type: mongoose.Schema.Types.ObjectId, ref: 'Form', required: true, index: true },
   answers: [{ type: mongoose.Schema.Types.Mixed, required: true }],
 }, { timestamps: true });
 

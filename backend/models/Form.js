@@ -7,9 +7,9 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 const FormSchema = new mongoose.Schema({
-  title: { type: String, required: true },
+  title: { type: String, required: true, index: true },
   questions: [QuestionSchema],
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin', required: true },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin', required: true, index: true },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Form', FormSchema); 
