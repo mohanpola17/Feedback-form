@@ -9,11 +9,15 @@ const app = express();
 
 // Security middlewares
 app.use(helmet());
-if (!process.env.FRONTEND_URL) {
-  throw new Error('FRONTEND_URL environment variable is required!');
+const frontendUrls = [
+  process.env.FRONTEND_URL,
+  'http://localhost:3000'
+].filter(Boolean);
+if (frontendUrls.length === 0) {
+  throw new Error('At least one FRONTEND_URL (or localhost) must be set!');
 }
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: frontendUrls,
   credentials: true,
 }));
 
