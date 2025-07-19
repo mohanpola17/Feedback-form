@@ -74,16 +74,30 @@ npm install
 ```
 
 ### 3. Environment Variables
-Create a `.env` file in the `backend/` directory with:
-```
-MONGO_URI=<your-mongodb-uri>
-JWT_SECRET=<your-jwt-secret>
-FRONTEND_URL=https://feedback-platform.vercel.app
-```
-Optionally, create a `.env` in `frontend/` for API URL:
-```
-REACT_APP_API_URL=https://your-backend.onrender.com/api
-```
+
+#### **For Local Development:**
+- In `backend/.env`:
+  ```
+  MONGO_URI=<your-mongodb-uri>
+  JWT_SECRET=<your-jwt-secret>
+  FRONTEND_URL=http://localhost:3000
+  ```
+- In `frontend/.env`:
+  ```
+  REACT_APP_API_URL=http://localhost:4000/api
+  ```
+
+#### **For Deployment:**
+- In your backend host (e.g., Render) environment variables:
+  ```
+  MONGO_URI=<your-production-mongodb-uri>
+  JWT_SECRET=<your-production-jwt-secret>
+  FRONTEND_URL=https://your-frontend-domain.com
+  ```
+- In your frontend host (e.g., Vercel) environment variables:
+  ```
+  REACT_APP_API_URL=https://your-backend-domain.com/api
+  ```
 
 ### 4. Running the App
 - **Backend:**
@@ -97,7 +111,7 @@ REACT_APP_API_URL=https://your-backend.onrender.com/api
   cd frontend
   npm start
   ```
-- Visit [https://feedback-platform.vercel.app](https://feedback-platform.vercel.app)
+- Visit [http://localhost:3000](http://localhost:3000) (for local dev) or your deployed frontend URL.
 
 ---
 
@@ -156,4 +170,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ---
 
 ## 📄 License
-[MIT](LICENSE) # Feedback-form
+[MIT](LICENSE)
