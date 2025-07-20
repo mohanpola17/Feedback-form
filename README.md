@@ -61,8 +61,8 @@ A professional, full-stack feedback platform for creating, sharing, and analyzin
 
 ### 1. Clone the repository
 ```sh
-git clone <your-repo-url>
-cd assignment_a
+git clone https://github.com/mohanpola17/Feedback-form.git
+cd feedback-form
 ```
 
 ### 2. Install dependencies
@@ -80,11 +80,10 @@ npm install
   ```
   MONGO_URI=<your-mongodb-uri>
   JWT_SECRET=<your-jwt-secret>
-  FRONTEND_URL=http://localhost:3000
+  PORT=4000
   ```
 - In `frontend/.env`:
   ```
-  REACT_APP_API_URL=http://localhost:4000/api
   ```
 
 #### **For Deployment:**
@@ -93,6 +92,7 @@ npm install
   MONGO_URI=<your-production-mongodb-uri>
   JWT_SECRET=<your-production-jwt-secret>
   FRONTEND_URL=https://your-frontend-domain.com
+  PORT=4000
   ```
 - In your frontend host (e.g., Vercel) environment variables:
   ```
@@ -164,10 +164,12 @@ npm install
 
 ---
 
+## Local setup
+- Explore .env files in the code
+- Added safe URL's for deployed service ignore for local setup
+
 ## 🤝 Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
 ---
 
-## 📄 License
-[MIT](LICENSE)
