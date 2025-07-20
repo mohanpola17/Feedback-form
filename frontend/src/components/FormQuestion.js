@@ -17,6 +17,7 @@ const FormQuestion = ({ question, onChange, value }) => {
       );
       break;
     case 'select':
+    case 'multiple-choice':
       inputComponent = (
         <FormControl fullWidth required>
           <InputLabel>{question.text}</InputLabel>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import api from '../utils/api';
 import FormQuestion from '../components/FormQuestion';
-import { Container, Typography, Card, CardContent, Button, CircularProgress, Box, Grid } from '@mui/material';
+import { Container, Typography, Card, CardContent, Button, CircularProgress, Box, Grid, Stack } from '@mui/material';
 import { useSnackbar } from '../App';
 
 const PublicForm = () => {
@@ -55,23 +55,38 @@ const PublicForm = () => {
       ) : !form ? (
         <Typography>Form not found.</Typography>
       ) : (
-        <Card sx={{ p: { xs: 2, sm: 4 }, backgroundColor: theme => theme.palette.mode === 'dark' ? '#232323' : theme.palette.background.paper, borderRadius: 2 }}>
+        <Card
+          sx={{
+            p: { xs: 2, sm: 4 },
+            backgroundColor: theme => theme.palette.mode === 'dark' ? '#232323' : theme.palette.background.paper,
+            borderRadius: 2
+          }}
+        >
           <CardContent>
             <Typography variant="h4" gutterBottom color="text.primary">{form.title}</Typography>
             <form onSubmit={handleSubmit} aria-label="Public Feedback Form">
-              <Grid container spacing={2}>
+              <Stack spacing={2}>
                 {form.questions.map((q, idx) => (
-                  <Grid item xs={12} key={idx}>
-                    <Box sx={{ backgroundColor: theme => theme.palette.mode === 'dark' ? '#232323' : theme.palette.background.default, color: 'text.primary', p: 2, borderRadius: 2 }}>
-                      <FormQuestion
-                        question={q}
-                        value={answers[idx]}
-                        onChange={val => handleChange(idx, val)}
-                      />
-                    </Box>
-                  </Grid>
+                  <Box
+                    key={idx}
+                    sx={{
+                      backgroundColor: theme => theme.palette.mode === 'dark' ? '#232323' : theme.palette.background.default,
+                      color: 'text.primary',
+                      p: 2,
+                      borderRadius: 2
+                    }}
+                  >
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                      {idx + 1}. {q.text}
+                    </Typography>
+                    <FormQuestion
+                      question={q}
+                      value={answers[idx]}
+                      onChange={val => handleChange(idx, val)}
+                    />
+                  </Box>
                 ))}
-              </Grid>
+              </Stack>
               <Box mt={2}>
                 <Button type="submit" variant="contained" color="primary" fullWidth aria-label="Submit Feedback" sx={{ color: 'white' }}>
                   Submit Feedback
